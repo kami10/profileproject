@@ -12,8 +12,8 @@ class RegisterFactory implements FactoryInterface
 
     public function __invoke(ServiceManager $serviceManager)
     {
-        $dbService = $serviceManager->get(DBService::class);
+        $registerValidation = $serviceManager->get(RegisterValidation::class);
         $templateRenderer = $serviceManager->get(TemplateRenderer::class);
-        return new Register($dbService, $templateRenderer);
+        return new Register($registerValidation, $templateRenderer);
     }
 }

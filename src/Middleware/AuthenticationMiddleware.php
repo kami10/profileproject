@@ -21,7 +21,5 @@ class AuthenticationMiddleware implements MiddlewareInterface
         if (!$_SESSION) {
             header("location: " . 'login');
         }
-        $class = $this->serviceManager->get(Profile::class);
-        $class->handle();
     }
 }

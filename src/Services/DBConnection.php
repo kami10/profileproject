@@ -36,11 +36,10 @@ class DBConnection
             $conn = new PDO("mysql:host=$servername;dbname=profile_db", $username, $password);
             // set the PDO error mode to exception
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            // echo "Connected successfullyyyyyyyyyyyyyyyyyyyyyyyyy";
             $sql = "SELECT id FROM tbl_registration WHERE `username` = '$user' AND `password`='$pass' ";
             $stmt = $conn->prepare($sql);
             $stmt->execute();
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
             foreach ($stmt->fetchAll() as $key => $value) {
                 return $value;
             }

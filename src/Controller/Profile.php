@@ -16,6 +16,10 @@ class Profile implements ControllerInterface
 
     public function handle()
     {
-        $this->templateRenderer->render('profileTemplate.php');
+        if ($_SESSION['id'] !== $_GET['id']) {
+            echo 'boro yare';
+        }
+        //'select * from tbl where id =' .'$_SESSION['id']';
+        return $this->templateRenderer->render('profileTemplate.php');
     }
 }

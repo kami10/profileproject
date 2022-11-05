@@ -4,10 +4,11 @@ namespace App\System;
 
 use App\Interfaces\FactoryInterface;
 
-class RouterFactory implements FactoryInterface
+class AppFactory implements FactoryInterface
 {
+
     public function __invoke(ServiceManager $serviceManager)
     {
-        return new Router($serviceManager->get('config')['routes'] ?? []);
+        return new App($serviceManager);
     }
 }

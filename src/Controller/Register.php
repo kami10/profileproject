@@ -10,12 +10,12 @@ use http\Client\Request;
 class Register implements ControllerInterface
 {
     private TemplateRenderer $templateRenderer;
-    private DBService $DBService;
+    private RegisterValidation $registerValidation;
 
-    public function __construct(DBService $DBService, TemplateRenderer $templateRenderer)
+    public function __construct(RegisterValidation $registerValidation, TemplateRenderer $templateRenderer)
     {
         $this->templateRenderer = $templateRenderer;
-        $this->DBService = $DBService;
+        $this->registerValidation = $registerValidation;
     }
 
     public function handle()
@@ -26,9 +26,11 @@ class Register implements ControllerInterface
             $password = $_REQUEST['password'];
             $email = $_REQUEST['email'];
             $number = $_REQUEST['number'];
-            $this->DBService->addMember($username, $password, $email, $number);
+
+            $this->registerValidation->checkUserInputs($username, $password, $email, $number);
             echo 'added';
         }
+
         return $this->templateRenderer->render('registerTemplate.php');
     }
 }

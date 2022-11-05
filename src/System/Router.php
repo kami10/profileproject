@@ -8,28 +8,20 @@ use Exception;
 
 class Router
 {
-    public ServiceManager $serviceManager;
+    private array $route;
 
-    public function __construct(ServiceManager $serviceManager)
+    public function __construct(array $route)
     {
-        $this->serviceManager = $serviceManager;
+        $this->route = $route;
     }
 
-    public function run(string $address)
+    public function resolve(string $address)
     {
-        $route = $this->serviceManager->get('config')['routes'] ?? [];
-        $output = $route[$address] ?? $route['showError'];
+        $routes = $this->route;
+        $output = $routes[$address] ?? null;
 
-        if (is_array($output)) {
-            $middleware = $this->serviceManager->get(current($output));
-            if ($middleware instanceof MiddlewareInterface) {
-                return $middleware;
-            }
-        } else {
-            $controller = $this->serviceManager->get($output);
-            if ($controller instanceof ControllerInterface) {
-                return $controller;
-            }
+        if ($output !== null) {
+            return $output;
         }
         throw new Exception('route not found');
     }

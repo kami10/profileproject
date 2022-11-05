@@ -8,6 +8,8 @@ use App\Controller\Profile;
 use App\Controller\ProfileFactory;
 use App\Controller\Register;
 use App\Controller\RegisterFactory;
+use App\Controller\RegisterValidation;
+use App\Controller\RegisterValidationFactory;
 use App\Controller\ShowError;
 use App\Controller\ShowErrorFactory;
 use App\Middleware\AuthenticationMiddleware;
@@ -15,6 +17,8 @@ use App\Middleware\AuthenticationMiddlewareFactory;
 use App\Services\DBService;
 use App\Services\TemplateRenderer;
 use App\Services\TemplateRendererFactory;
+use App\System\App;
+use App\System\AppFactory;
 use App\System\Router;
 use App\System\RouterFactory;
 
@@ -30,6 +34,8 @@ return [
             ShowError::class => ShowErrorFactory::class,
             Profile::class => ProfileFactory::class,
             AuthenticationMiddleware::class => AuthenticationMiddlewareFactory::class,
+            App::class => AppFactory::class,
+            RegisterValidation::class => RegisterValidationFactory::class,
         ],
         'invokables' => [
             DBService::class => DBService::class,

@@ -21,14 +21,14 @@ class Login implements ControllerInterface
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $username = $_REQUEST["username"];
-            $password = $_REQUEST["password"];
+            $password = md5($_REQUEST["password"]);
 
             $result = $this->DBService->getMember($username, $password);
 
             if ($result) {
-                echo 'login successful';
-                $_SESSION['id'] = $result;
-                header("location: " . 'profile');
+                $userId = $result['id'];
+                $_SESSION['id'] = $userId;
+                header("location: " . 'profile?id=' . $userId);
             } else {
                 echo 'login failed';
             }
